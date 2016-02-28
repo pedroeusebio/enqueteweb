@@ -7,8 +7,10 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var auth = require('./routes/auth');
 
 var app = express();
+var fb_config = require('./passport/facebook.js');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -22,8 +24,36 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//configuring Passport
+
+var passport = require('passport');
+var session = require('express-session');
+
+app.use(session({
+    secret: 'secret cat',
+    resave: true,
+    saveUninitialized: true,
+    cookie: {maxAge: 24 * 60 * 60 * 1000}
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+var flash = require('connect-flash');
+app.use(flash());
+
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+  done(null, user);
+});
+
+fb_config.fb_passport(passport);
+
 app.use('/', routes);
 app.use('/users', users);
+app.use('/auth', auth);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

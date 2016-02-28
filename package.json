@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "env $(cat .env) nodemon ./bin/www  --exec babel-node"
+    "start": "env $(cat .env) nodemon ./bin/www  --exec babel-node",
+    "build": "babel src -d lib"
   },
   "dependencies": {
     "body-parser": "~1.13.2",
@@ -24,7 +25,9 @@
     "connect-flash": "~0.1.1",
     "express-session": "~1.13.0",
     "sendgrid": "~2.0.0",
-    "mysql": "~2.10.2"
+    "mysql": "~2.10.2",
+    "passport-facebook": "~2.1.0",
+    "bootstrap-social": "~4.11.0"
   },
   "devDependencies": {
     "nodemon": "~1.9.1",
