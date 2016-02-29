@@ -9,8 +9,8 @@ router.get('/', function(req, res, next) {
   res.render('login', { title: 'Express' });
 });
 
-router.get('/login/facebook',passport.authenticate('facebook', {scope: 'email'}));
-router.get('/login/facebook/callback', 
+router.get('/facebook',passport.authenticate('facebook', {scope: 'email'}));
+router.get('/facebook/callback', 
 	passport.authenticate('facebook', {
 		successRedirect:'/users',
 		failureRedirect: '/'
