@@ -4,13 +4,12 @@ const db = config.db;
 
 
 export const findOneByFacebook = (facebook_id) => {
-	return db('facebbok as f')
+	return db('usuario as u')
 	.select()
-	.leftJoin('usuario as u', 'f.usuario_id', 'u.id')
-	.where('f.id', facebook_id) 
+	.where('u.facebook_id', facebook_id) 
 	.then(r => r);
 }
 
 export const createByFacebook = (user_info) => {
-
+	return db('usuario').insert(user_info).then(r => r);
 }
