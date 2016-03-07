@@ -27,7 +27,8 @@
     "sendgrid": "~2.0.0",
     "mysql": "~2.10.2",
     "passport-facebook": "~2.1.0",
-    "bootstrap-social": "~4.11.0"
+    "bootstrap-social": "~4.11.0",
+    "validator": "~5.1.0"
   },
   "devDependencies": {
     "nodemon": "~1.9.1",

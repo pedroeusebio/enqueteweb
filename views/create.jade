@@ -1,0 +1,20 @@
+extends layout
+
+block content
+  div.container
+    div.row
+      div.col-sm-6.col-md-3.col-md-offset-4
+        -if(error)
+          .callout.callout-danger
+            p <strong> Erro ! </strong> #{error}
+        form#form-create(action='/auth/create', method='post')
+          input.form-control(type='text', placeholder='Nome*', name='name')
+          input.form-control(type='text', placeholder='Email*', name='email')
+          input.form-control(type='text', placeholder='Data de nascimento', name='data_nascimento')
+          input.form-control(type='text', placeholder='Organização', name='organization')
+          input.form-control(type='password', placeholder='Senha', name='password')
+          button.btn.btn-primary.btn-block.btn-flat(type='submit') Cadastrar-se
+
+
+  
+          

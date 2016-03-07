@@ -21,9 +21,13 @@ export const fb_passport = (passport) => {
 					name: profile.displayName,
 					estado_usuario_id: 0
 				};
-				user.createByFacebook(user_info).then(r => {
-					return done(null, r);
-				})
+				user.findOneByEmail(profile.emails[0].value).then(r => {
+					if(r.length > 0) {
+						user.update(r[0].id, user_info).then(r => done(null, r));
+					} else {
+						user.createByFacebook(user_info).then(r => {done(null, r)});	
+					}
+				});
 			}
 		});
 	}));

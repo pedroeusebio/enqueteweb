@@ -7,5 +7,13 @@ block content
         h1.text-center.login-title Sign in to our Passport app
         a(href='auth/facebook', class='btn btn-block btn-social btn-facebook') Login with Facebook
           i(class='fa fa-facebook')
-        a(href='/login/twitter', class='btn btn-block btn-social btn-twitter') Login with Twitter
-          i(class='fa fa-twitter')
+        br
+        p.text_center ou entre com email :
+        form#login-local(action='/auth/login',method='post')
+          -if(error)
+            .callout.callout-danger
+              p <strong> Erro ! </strong> #{error}
+          input.form-control(type='text', placeholder='Email', name='email')
+          input.form-control(type='text', placeholder='senha', name='password')
+          .box-footer
+            input.btn.btn-success.pull-right(type='submit', value='Enviar')
