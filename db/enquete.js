@@ -17,7 +17,7 @@ export const update = (id, element) => {
 }
 
 export const create = (element) => {
-	return db('enquete as e')
+	return db('enquete')
 	.insert(element)
 	.then(r => r);
 }

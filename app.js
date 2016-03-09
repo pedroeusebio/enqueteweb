@@ -8,7 +8,7 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var auth = require('./routes/auth');
-
+var poll = require('./routes/poll');
 var app = express();
 var fb_config = require('./passport/facebook.js');
 
@@ -54,6 +54,7 @@ fb_config.fb_passport(passport);
 app.use('/', routes);
 app.use('/users', users);
 app.use('/auth', auth);
+app.use('/enquete', poll);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

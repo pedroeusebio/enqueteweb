@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  div.container
+   h3 Criar Enquete
+   div.col-sm-6.col-md-6.col-md-offset-3
+    -if(error)
+      .callout.callout-danger
+      p #{error}
+     form#form_poll(action='/enquete/create/', method='post')
+      input.form-control(type='text', placeholder='Nome', name='name')
+      select.form-control(name='estado_enquete')
+        -if(estado_enquete)
+          each estado in estado_enquete
+            option(value=estado.id) #{estado.estado}
+      input.form-control(type='text', placeholder='Pergunta', name='pergunta')
+      label Respostas
+      input#create_answer(type='button' name='create_answer' value='+')
+      br
+      input(type='checkbox' name='resposta_aleatorio')
+      | Resposta Aleátoria
+      div#answer
+      input.form-control(type='file' name='imagem')
+      button.btn.btn-primary.btn-block.btn-flat(type='submit') Criar
+
