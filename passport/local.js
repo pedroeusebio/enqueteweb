@@ -9,7 +9,7 @@ export const local_passport = (passport) => {
 	},
 	(req, username, password, done) => {
 		user.findOneByEmail(username).then(r => {
-			if( r.length < 0) {
+			if( r.length <= 0) {
 				return done(null, false, {message:'usuário não encontrado'});
 			}
 			user.checkPassword(password, r[0].password, (err,result) => {

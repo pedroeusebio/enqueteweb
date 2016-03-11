@@ -21,3 +21,18 @@ export const create = (element) => {
 	.insert(element)
 	.then(r => r);
 }
+
+export const getAll = () => {
+    return db('enquete')
+        .select()
+        .then(r => r);
+}
+
+export const getEntireEnqueteById = (id) => {
+    return db('enquete as e')
+        .select()
+        .leftJoin('pergunta as p', 'e.pergunta_id', 'p.id')
+        .leftJoin('resposta as r', 'p.id', 'r.pergunta_id')
+        .leftJoin('imagem as i', 'e.imagem_id', 'i.id')
+        .then(r => r);
+}

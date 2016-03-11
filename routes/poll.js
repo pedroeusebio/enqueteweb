@@ -6,17 +6,30 @@ var pergunta =  require('../db/pergunta.js');
 var resposta = require('../db/resposta.js');
 var enquete =  require('../db/enquete.js');
 
+const isLogged = (req, res, next) => {
+    if(req.isAuthenticated()){
+        return next();
+    } else {
+        req.flash('info', 'Entre no Sistema para realizar a Operação');
+        res.redirect('/auth');
+    }
+}
 
-router.get('/create', (req, res) => {
+router.get('/create', isLogged, (req, res) => {
     estado_enquete.getAll().then(r => {
         let estado = r;
         console.log(r);
-        res.render('create_enquete', {estado_enquete : estado});
+        let error = req.flash('error')[0];
+        res.render('create_enquete', {estado_enquete : estado, error: error});
     });
 });
 
-router.post('/create', (req, res) => {
-    let resposta_aleatorio = ('resposta_aleatorio' in req.body) ? 1: 0; 
+router.post('/create', isLogged, (req, res) => {
+    if( !('answers' in req.body)) {
+        req.flash('error', 'Enquete não possui nenhuma resposta');
+        res.redirect('/enquete/create');
+    }
+    let resposta_aleatorio = ('resposta_aleatorio' in req.body) ? 1: 0;
     console.log(req.body, req.user);
     let question = {pergunta: req.body.pergunta,
                     resposta_aleatorio: resposta_aleatorio};
@@ -35,6 +48,22 @@ router.post('/create', (req, res) => {
         });
     });
 
+});
+
+router.get('/', isLogged, (req,res) => {
+    enquete.getAll().then(r => {
+        let enquetes = r;
+       // res.render('enquetes', {enquetes: enquetes});
+        res.json(enquetes);
+    });
+});
+
+router.get('/:id', isLogged, (req, res) => {
+    enquete.getEntireEnqueteById(req.params.id).then(r => {
+        let enquete = r[0];
+        //res.render('enquete', {enquete: enquete});
+        res.json(enquete);
+    });
 });
 
 module.exports = router;

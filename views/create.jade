@@ -1,20 +1,46 @@
-extends layout
-
-block content
-  div.container
-    div.row
-      div.col-sm-6.col-md-3.col-md-offset-4
-        -if(error)
-          .callout.callout-danger
-            p <strong> Erro ! </strong> #{error}
-        form#form-create(action='/auth/create', method='post')
-          input.form-control(type='text', placeholder='Nome*', name='name')
-          input.form-control(type='text', placeholder='Email*', name='email')
-          input.form-control(type='text', placeholder='Data de nascimento', name='data_nascimento')
-          input.form-control(type='text', placeholder='Organização', name='organization')
-          input.form-control(type='password', placeholder='Senha', name='password')
-          button.btn.btn-primary.btn-block.btn-flat(type='submit') Cadastrar-se
-
-
-  
-          
+doctype html
+html(lang='en')
+  head
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    meta(name='description', content='')
+    meta(name='author', content='')
+    title SignIn - WSnippets
+    link(href='/bootstrap/css/bootstrap.min.css', rel='stylesheet')
+    link(href='/font-awesome/css/font-awesome.css', rel='stylesheet')
+    link(href='/stylesheets/login.css', rel='stylesheet')
+  body
+    .container
+      .form-signin
+        h3.heading-desc
+         | Cadastre-se para Acessar EnqueteWeb
+        .main
+          -if(error)
+            .alert.alert-danger
+              p <strong> Erro ! </strong> #{error}
+          form#form-create(action='/auth/create', method='post')
+            .form-group.form-horizontal
+              label.control-label.col-md-2 Nome
+              .col-md-9
+                input.form-control.name.input-group(type='text', placeholder='Nome*', name='name')
+            .form-group.form-horizontal
+              label.control-label.col-md-2 Email 
+              .col-md-9
+                input.form-control(type='text', placeholder='Email*', name='email')
+            .form-group.form-horizontal
+              label.control-label.col-md-2 Data de Nascimento
+              .col-md-9
+                input.form-control(type='text', placeholder='Data de nascimento', name='data_nascimento')
+             .form-group.form-horizontal
+              label.control-label.col-md-2 Organização
+              .col-md-9
+                input.form-control(type='text', placeholder='Organização', name='organization')
+            .form-group.form-horizontal
+              label.control-label.col-md-2 Senha
+              .col-md-9
+                input.form-control(type='password', placeholder='Senha', name='password')
+            span.clearfix
+            .login-footer
+              .row
+                .col-xs-4.col-md-4.pull-right
+                  button.btn.btn-large.btn-danger.pull-right(type='submit') Cadastrar-se 

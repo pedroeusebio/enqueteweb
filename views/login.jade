@@ -1,19 +1,40 @@
-extends layout
-
-block content
-  div.container
-    div.row
-      div.col-sm-6.col-md-3.col-md-offset-4
-        h1.text-center.login-title Sign in to our Passport app
-        a(href='auth/facebook', class='btn btn-block btn-social btn-facebook') Login with Facebook
-          i(class='fa fa-facebook')
-        br
-        p.text_center ou entre com email :
-        form#login-local(action='/auth/login',method='post')
-          -if(error)
-            .callout.callout-danger
+doctype html
+html(lang='en')
+  head
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    meta(name='description', content='')
+    meta(name='author', content='')
+    title SignIn - WSnippets
+    link(href='/bootstrap/css/bootstrap.min.css', rel='stylesheet')
+    link(href='/font-awesome/css/font-awesome.css', rel='stylesheet')
+    link(href='/stylesheets/login.css', rel='stylesheet')
+  body
+    .container
+      .form-signin
+        h3.heading-desc
+          button.close.pull-right(type='button', aria-hidden='true') ×
+          | 		Login to EnqueteWeb
+        .social-box
+          .row.mg-btm
+            .col-md-12
+              a.btn.btn-primary.btn-block(href='/auth/facebook')
+                i.icon-facebook
+                |     Login with Facebook
+        -if(error)
+            .alert.alert-danger
               p <strong> Erro ! </strong> #{error}
-          input.form-control(type='text', placeholder='Email', name='email')
-          input.form-control(type='text', placeholder='senha', name='password')
-          .box-footer
-            input.btn.btn-success.pull-right(type='submit', value='Enviar')
+        .main
+          form#login-local(action='/auth/login', method='post')
+            input.form-control(type='text', placeholder='Email', autofocus='', name='email')
+            input.form-control(type='password', placeholder='Password', name='password')
+            span.clearfix
+            .login-footer
+              .row
+                .col-xs-8.col-md-8
+                  .left-section
+                    a(href='') Forgot your password?
+                    br
+                    a(href='/auth/create') Sign up now
+                .col-xs-4.col-md-4.pull-right
+                  button.btn.btn-large.btn-danger.pull-right(type='submit') Login
