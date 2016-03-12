@@ -3,8 +3,7 @@ body {
   padding-bottom: 40px;
   background-color: #e3e3e3;
 }
-.form-signin {
-  max-width: 800px;  
+.form-signin{
   margin: 0 auto;
   display:block;
   background-color: #f7f7f7;
@@ -13,6 +12,15 @@ body {
 	box-shadow: 0 0 3px 3px #888;
   border-radius:2px;
 }
+
+.form-signup {
+  max-width: 800px !important;  
+}
+
+.form-signin {
+    max-width: 400px;
+}
+
 .main{
 	padding: 38px;
 }

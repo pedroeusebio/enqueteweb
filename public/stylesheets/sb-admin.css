@@ -226,3 +226,7 @@ ul.alert-dropdown {
 .panel-yellow > a:hover {
     color: #df8a13;
 }
+
+.answer {
+    padding-bottom: 10px;
+}

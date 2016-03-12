@@ -20,14 +20,27 @@ router.get('/create', isLogged, (req, res) => {
         let estado = r;
         console.log(r);
         let error = req.flash('error')[0];
-        res.render('create_enquete', {estado_enquete : estado, error: error});
+        let user = req.user;
+        res.render('create_enquete', {estado_enquete : estado, error: error, user: user});
     });
 });
 
 router.post('/create', isLogged, (req, res) => {
-    if( !('answers' in req.body)) {
+    console.log(req.body);
+    if( !('answer' in req.body)) {
         req.flash('error', 'Enquete não possui nenhuma resposta');
         res.redirect('/enquete/create');
+        return;
+    }
+    if(!('pergunta' in req.body) || req.body.pergunta == '') {
+        req.flash('error', 'Enquete não possui Pergunta');
+        res.redirect('/enquete/create');
+        return;
+    }
+    if(!('name' in req.body) || req.body.name == '' ) {
+        req.flash('error', 'Enquete não possui Nome');
+        res.redirect('/enquete/create');
+        return;
     }
     let resposta_aleatorio = ('resposta_aleatorio' in req.body) ? 1: 0;
     console.log(req.body, req.user);
@@ -43,8 +56,7 @@ router.post('/create', isLogged, (req, res) => {
                     usuario_id: user.id, name: req.body.name,
                     tipo_estado_id: req.body.estado_enquete};
         enquete.create(poll).then(r => {
-            console.log(r);
-            res.redirect('/users');
+            res.redirect('/');
         });
     });
 
@@ -53,8 +65,12 @@ router.post('/create', isLogged, (req, res) => {
 router.get('/', isLogged, (req,res) => {
     enquete.getAll().then(r => {
         let enquetes = r;
-       // res.render('enquetes', {enquetes: enquetes});
-        res.json(enquetes);
+        let user =  req.user;
+        for(var i = 0; i< enquetes.length; i++) {
+            enquetes[i].respostas = enquetes[i].respostas.split('----');
+        }
+        console.log(enquetes);
+        res.render('enquete', {enquetes: enquetes, user: user});
     });
 });
 

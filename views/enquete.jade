@@ -1,6 +1,40 @@
 extends layout
 
 block content
-  div.container
-    -if(enquete)
-      #{enquete}
+  #page-wrapper
+    .container-fluid
+      .row
+        .col-lg-12
+          h1.page-header
+            | Polls
+          ol.breadcrumb
+            .active
+              i.fa.fa-fw.fa-bar-chart-o
+              |  Polls
+              .col-md-offset-6.active
+                span.text-center(style='float:right')
+                  a(href='/enquete/create')
+                    img(src='http://manager.sigelu.com/icons/add64.png')
+                    br
+                    | Inserir Enquete
+      .row
+        -if(enquetes)
+          each enquete in enquetes
+            .col-md-3
+              .panel.panel-primary
+                .panel-heading
+                  h3.panel-title
+                    span.glyphicon.glyphicon-hand-right
+                    | #{enquete.pergunta} 
+                .panel-body
+                  ul.list-group
+                    each resposta in enquete.respostas
+                      li.list-group-item
+                        .checkbox
+                          label
+                            input(type='checkbox', value='')
+                            |                                     #{resposta} 
+                .panel-footer.text-center
+                  button.btn.btn-primary.btn-block.btn-sm(type='button')
+                    | Vote
+                  a.small(href='#') View Result

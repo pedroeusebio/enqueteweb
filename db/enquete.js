@@ -23,16 +23,21 @@ export const create = (element) => {
 }
 
 export const getAll = () => {
-    return db('enquete')
-        .select()
+    return db('enquete as e')
+        .select('e.id','e.name','p.id as pID','p.pergunta', db.raw('group_concat(?? separator "----") as respostas', ['resposta']) )
+        .leftJoin('pergunta as p', 'e.pergunta_id', 'p.id')
+        .leftJoin('resposta as r', 'p.id', 'r.pergunta_id')
+        .leftJoin('imagem as i', 'e.imagem_id', 'i.id')
+        .groupBy('e.id')
         .then(r => r);
 }
 
 export const getEntireEnqueteById = (id) => {
     return db('enquete as e')
-        .select()
+        .select(e.id, p.id )
         .leftJoin('pergunta as p', 'e.pergunta_id', 'p.id')
         .leftJoin('resposta as r', 'p.id', 'r.pergunta_id')
         .leftJoin('imagem as i', 'e.imagem_id', 'i.id')
+        .where('e.id',id)
         .then(r => r);
 }

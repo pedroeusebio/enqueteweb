@@ -31,13 +31,14 @@ html(lang='en')
             span.icon-bar
             span.icon-bar
             span.icon-bar
-          a.navbar-brand(href='index.html') SB Admin
+          a.navbar-brand(href='/') EnqueteWeb
         // Top Menu Items
         ul.nav.navbar-right.top-nav
           li.dropdown
             a.dropdown-toggle(href='#', data-toggle='dropdown')
               i.fa.fa-user
-              |  #{user.name} 
+                -if(user)
+                  |  #{user.name} 
               b.caret
             ul.dropdown-menu
               li
@@ -57,11 +58,11 @@ html(lang='en')
         .collapse.navbar-collapse.navbar-ex1-collapse
           ul.nav.navbar-nav.side-nav
             li.active
-              a(href='index.html')
+              a(href='/')
                 i.fa.fa-fw.fa-dashboard
                 |  Dashboard
             li
-              a(href='/enquetes')
+              a(href='/enquete')
                 i.fa.fa-fw.fa-bar-chart-o
                 | enquetes 
        block content

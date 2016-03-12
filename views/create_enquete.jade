@@ -1,25 +1,54 @@
 extends layout
 
 block content
-  div.container
-   h3 Criar Enquete
-   div.col-sm-6.col-md-6.col-md-offset-3
-    -if(error)
-      .callout.callout-danger
-      p #{error}
-     form#form_poll(action='/enquete/create/', method='post')
-      input.form-control(type='text', placeholder='Nome', name='name')
-      select.form-control(name='estado_enquete')
-        -if(estado_enquete)
-          each estado in estado_enquete
-            option(value=estado.id) #{estado.estado}
-      input.form-control(type='text', placeholder='Pergunta', name='pergunta')
-      label Respostas
-      input#create_answer(type='button' name='create_answer' value='+')
-      br
-      input(type='checkbox' name='resposta_aleatorio')
-      | Resposta Aleátoria
-      div#answer
-      input.form-control(type='file' name='imagem')
-      button.btn.btn-primary.btn-block.btn-flat(type='submit') Criar
+  #page-wrapper
+    .container-fuild
+      .row
+        .col-lg-12
+          h1.page-header
+            | Create Poll
+          ol.breadcrumb
+            li.active
+              i.fa.fa-fw.fa-bar-chart-o
+                | Create Poll
+      .row
+        div.col-sm-6.col-md-6.col-md-offset-3
+          -if(error)
+            .alert.alert-danger
+              p #{error}
+          .panel.panel-green
+            .panel-heading
+              h3.panel-title Create Poll
+            .panel-body
+              form#form_poll(action='/enquete/create/', method='post')
+                .form-group.form-horizontal
+                  label.control-label.col-md-2 Nome
+                  .col-md-9.input-group
+                    input.form-control(type='text', placeholder='Nome', name='name')
+                .form-group.form-horizontal
+                  label.control-label.col-md-2 Estado 
+                  .col-md-9.input-group
+                    select.form-control(name='estado_enquete')
+                      -if(estado_enquete)
+                        each estado in estado_enquete
+                          option(value=estado.id) #{estado.estado}
+                .form-group.form-horizontal
+                  label.control-label.col-md-2 Pergunta 
+                  .col-md-9.input-group
+                    input.form-control(type='text', placeholder='Pergunta', name='pergunta')
+                .form-group.form-horizontal
+                  label.control-label.col-md-2 Respostas  
+                  .col-md-9
+                    div#answer.form-group
+                    .form-group
+                      input#create_answer.btn.btn-sm.btn-success(type='button' name='create_answer' value='adicionar resposta')
+                      .pull-right
+                        input(type='checkbox' name='resposta_aleatorio')
+                        | Resposta Aleátoria
+                .form-group.form-horizontal
+                  label.control-label.col-md-2 Pergunta 
+                  .col-md-9.input-group
+                    input.form-control(type='file' name='imagem')
+                .pull-right
+                  button.btn.btn-primary.btn-block.btn-flat(type='submit') Criar
 
