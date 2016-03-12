@@ -10,7 +10,7 @@ const isLogged = (req, res, next) => {
 }
 /* GET home page. */
 router.get('/', isLogged, function(req, res, next) {
-  res.render('index', { user: req.user });
+    res.render('index', { user: req.user, active: 'home' });
 });
 
 module.exports = router;

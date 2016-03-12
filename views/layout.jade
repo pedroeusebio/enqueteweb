@@ -52,20 +52,31 @@ html(lang='en')
                   |  Settings
               li.divider
               li
-                a(href='#')
+                a(href='/logout')
                   i.fa.fa-fw.fa-power-off
                   |  Log Out
         // Sidebar Menu Items - These collapse to the responsive navigation menu on small screens
         .collapse.navbar-collapse.navbar-ex1-collapse
           ul.nav.navbar-nav.side-nav
-            li.active
-              a(href='/')
-                i.fa.fa-fw.fa-dashboard
-                |  Dashboard
-            li
-              a(href='/enquete')
-                i.fa.fa-fw.fa-bar-chart-o
-                | enquetes 
+            -if(active)
+              -if(active == 'home')
+                li.active
+                  a(href='/')
+                    i.fa.fa-fw.fa-dashboard
+                    |  Dashboard
+                li
+                  a(href='/enquete')
+                    i.fa.fa-fw.fa-bar-chart-o
+                    | Enquetes 
+              -else if(active == 'enquete')
+                li
+                  a(href='/')
+                    i.fa.fa-fw.fa-dashboard
+                    |  Dashboard
+                li.active
+                  a(href='/enquete')
+                    i.fa.fa-fw.fa-bar-chart-o
+                    | Enquetes
        block content
    
     script(src='/javascripts/jquery.min.js')

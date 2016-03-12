@@ -22,7 +22,7 @@ router.get('/create', isLogged, (req, res) => {
         console.log(r);
         let error = req.flash('error')[0];
         let user = req.user;
-        res.render('create_enquete', {estado_enquete : estado, error: error, user: user});
+        res.render('create_enquete', {estado_enquete : estado, error: error, user: user, active: 'enquete'});
     });
 });
 
@@ -90,17 +90,17 @@ router.get('/', isLogged, (req,res) => {
             error = {message: error_message,
                      enquete_id: req.flash('enquete_id')[0]};
             console.log(error);
-            res.render('enquete', {enquetes: enquetes, user: user, error: error});
+            res.render('enquete', {enquetes: enquetes, user: user, error: error, active: 'enquete'});
             return;
         } else if(!(success_message == undefined)) {
             success = {message: success_message,
                        enquete_id: req.flash('enquete_id')[0]};
             console.log(success);
-            res.render('enquete', {enquetes: enquetes, user: user, success: success});
+            res.render('enquete', {enquetes: enquetes, user: user, success: success, active: 'enquete'});
             return;
         } else {
             console.log('sem erro e sucesso');
-            res.render('enquete', {enquetes: enquetes, user: user});
+            res.render('enquete', {enquetes: enquetes, user: user, active: 'enquete'});
             return;
         }
     });

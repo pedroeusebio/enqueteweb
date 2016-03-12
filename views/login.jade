@@ -23,7 +23,8 @@ html(lang='en')
                 |     Login with Facebook
         -if(error)
             .alert.alert-danger
-              p <strong> Erro ! </strong> #{error}
+              p <strong> Erro ! </strong> 
+              p #{error}
         .main
           form#login-local(action='/auth/login', method='post')
             input.form-control(type='text', placeholder='Email', autofocus='', name='email')
