@@ -5,4 +5,8 @@ $(document).ready( function () {
         var answer = "<div class='answer'><input class='form-control' type='text' placeholder='resposta' name='answer' /></div>";
         $('#answer').append(answer);
     });
+    $('#remove_answer').on('click', function() {
+        $('#answer').find('input:last').remove();
+    });
+    $('#datepicker').datepicker();
 });

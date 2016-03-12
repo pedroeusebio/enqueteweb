@@ -21,20 +21,109 @@ block content
         -if(enquetes)
           each enquete in enquetes
             .col-md-3
-              .panel.panel-primary
-                .panel-heading
-                  h3.panel-title
-                    span.glyphicon.glyphicon-hand-right
-                    | #{enquete.pergunta} 
-                .panel-body
-                  ul.list-group
-                    each resposta in enquete.respostas
-                      li.list-group-item
-                        .checkbox
-                          label
-                            input(type='radio', name='vote')
-                            |                                     #{resposta} 
-                .panel-footer.text-center
-                  button.btn.btn-primary.btn-block.btn-sm(type='button')
-                    | Vote
-                  a.small(href='#') View Result
+              -if(error)
+                -if(error.enquete_id == enquete.id)
+                  .panel.panel-red
+                    .panel-heading
+                      h3.panel-title
+                        span.glyphicon.glyphicon-hand-right
+                        | #{enquete.pergunta} 
+                    .panel-body
+                      .alert.alert-danger
+                        p <strong> Erro ! </strong> #{error.message}
+                      form#form_vote(action='/enquete/vote', method='post')
+                        input(type='hidden' name='enquete_id' value=enquete.id)
+                        ul.list-group
+                            each resposta in enquete.respostas
+                              li.list-group-item
+                                .checkbox
+                                  label
+                                    input(type='radio', name='vote' value=resposta.id)
+                                    |                                     #{resposta.resposta} 
+                        .panel-footer.text-center
+                          button.btn.btn-primary.btn-block.btn-sm(type='submit')
+                            | Vote
+                          a.small(href='#') View Result
+                -else
+                    .panel.panel-primary
+                      .panel-heading
+                        h3.panel-title
+                          span.glyphicon.glyphicon-hand-right
+                          | #{enquete.pergunta} 
+                      .panel-body
+                        form#form_vote(action='/enquete/vote', method='post')
+                          input(type='hidden' name='enquete_id' value=enquete.id)
+                          ul.list-group
+                              each resposta in enquete.respostas
+                                li.list-group-item
+                                  .checkbox
+                                    label
+                                      input(type='radio', name='vote' value=resposta.id)
+                                      |                                     #{resposta.resposta} 
+                          .panel-footer.text-center
+                            button.btn.btn-primary.btn-block.btn-sm(type='submit')
+                              | Vote
+                            a.small(href='#') View Result
+              -else if(success)
+                  -if(success.enquete_id == enquete.id)
+                    .panel.panel-green
+                      .panel-heading
+                        h3.panel-title
+                          span.glyphicon.glyphicon-hand-right
+                          | #{enquete.pergunta} 
+                      .panel-body
+                        .alert.alert-success
+                          p <strong> Sucesso ! </strong> #{success.message}
+                        form#form_vote(action='/enquete/vote', method='post')
+                          input(type='hidden' name='enquete_id' value=enquete.id)
+                          ul.list-group
+                              each resposta in enquete.respostas
+                                li.list-group-item
+                                  .checkbox
+                                    label
+                                      input(type='radio', name='vote' value=resposta.id)
+                                      |                                     #{resposta.resposta} 
+                          .panel-footer.text-center
+                            button.btn.btn-primary.btn-block.btn-sm(type='submit')
+                              | Vote
+                            a.small(href='#') View Result
+                  -else
+                    .panel.panel-primary
+                      .panel-heading
+                        h3.panel-title
+                          span.glyphicon.glyphicon-hand-right
+                          | #{enquete.pergunta} 
+                      .panel-body
+                        form#form_vote(action='/enquete/vote', method='post')
+                          input(type='hidden' name='enquete_id' value=enquete.id)
+                          ul.list-group
+                              each resposta in enquete.respostas
+                                li.list-group-item
+                                  .checkbox
+                                    label
+                                      input(type='radio', name='vote' value=resposta.id)
+                                      |                                     #{resposta.resposta} 
+                          .panel-footer.text-center
+                            button.btn.btn-primary.btn-block.btn-sm(type='submit')
+                              | Vote
+                            a.small(href='#') View Result
+              -else
+                .panel.panel-primary
+                  .panel-heading
+                    h3.panel-title
+                      span.glyphicon.glyphicon-hand-right
+                      | #{enquete.pergunta} 
+                  .panel-body
+                    form#form_vote(action='/enquete/vote', method='post')
+                      input(type='hidden' name='enquete_id' value=enquete.id)
+                      ul.list-group
+                          each resposta in enquete.respostas
+                            li.list-group-item
+                              .checkbox
+                                label
+                                  input(type='radio', name='vote' value=resposta.id)
+                                  |                                     #{resposta.resposta} 
+                      .panel-footer.text-center
+                        button.btn.btn-primary.btn-block.btn-sm(type='submit')
+                          | Vote
+                        a.small(href='#') View Result

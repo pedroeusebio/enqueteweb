@@ -22,7 +22,7 @@ block content
             .panel-body
               form#form_poll(action='/enquete/create/', method='post')
                 .form-group.form-horizontal
-                  label.control-label.col-md-2 Nome
+                  label.control-label.col-md-2 Nome *
                   .col-md-9.input-group
                     input.form-control(type='text', placeholder='Nome', name='name')
                 .form-group.form-horizontal
@@ -37,18 +37,26 @@ block content
                   .col-md-9.input-group
                     input.form-control(type='text', placeholder='Pergunta', name='pergunta')
                 .form-group.form-horizontal
-                  label.control-label.col-md-2 Respostas  
+                  label.control-label.col-md-2 Respostas *  
                   .col-md-9
                     div#answer.form-group
                     .form-group
                       input#create_answer.btn.btn-sm.btn-success(type='button' name='create_answer' value='adicionar resposta')
+                      input#remove_answer.btn.btn-sm.btn-danger(type='button' name='remove_answer' value='remover resposta')
                       .pull-right
                         input(type='checkbox' name='resposta_aleatorio')
                         | Resposta Aleátoria
                 .form-group.form-horizontal
-                  label.control-label.col-md-2 Pergunta 
+                  label.control-label.col-md-2 Imagem 
                   .col-md-9.input-group
                     input.form-control(type='file' name='imagem')
-                .pull-right
-                  button.btn.btn-primary.btn-block.btn-flat(type='submit') Criar
+                .form-group.form-horizontal
+                  label.control-label.col-md-2 Data de Encerramento * 
+                  .col-md-9.input-group
+                    input#datepicker.form-control(type='text' name='date')
+                .panel-footer
+                  .pull-right
+                    button.btn.btn-primary.btn-block.btn-flat(type='submit') Criar
+                  .pull-left
+                    p Campos com * são obrigatórios
 

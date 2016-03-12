@@ -24,7 +24,9 @@ export const create = (element) => {
 
 export const getAll = () => {
     return db('enquete as e')
-        .select('e.id','e.name','p.id as pID','p.pergunta', db.raw('group_concat(?? separator "----") as respostas', ['resposta']) )
+        .select('e.id','e.name','p.id as pID','p.pergunta',
+                db.raw('group_concat(?? separator "----") as respostas', ['r.resposta']),
+                db.raw('group_concat(?? separator ";") as respostas_id', ['r.id']))
         .leftJoin('pergunta as p', 'e.pergunta_id', 'p.id')
         .leftJoin('resposta as r', 'p.id', 'r.pergunta_id')
         .leftJoin('imagem as i', 'e.imagem_id', 'i.id')
@@ -39,5 +41,14 @@ export const getEntireEnqueteById = (id) => {
         .leftJoin('resposta as r', 'p.id', 'r.pergunta_id')
         .leftJoin('imagem as i', 'e.imagem_id', 'i.id')
         .where('e.id',id)
+        .then(r => r);
+}
+
+export const getEnqueteByAnswer = (answer_id)=> {
+    return db('enquete as e')
+        .select('e.*')
+        .leftJoin('pergunta as p', 'e.pergunta_id', 'p.id')
+        .leftJoin('resposta as r', 'p.id', 'r.pergunta_id')
+        .where('r.id', answer_id)
         .then(r => r);
 }
