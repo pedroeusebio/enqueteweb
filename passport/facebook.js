@@ -11,21 +11,26 @@ export const fb_passport = (passport) => {
 	},
 	(access_token, refresh_token, profile, done) => {
 		user.findOneByFacebook(profile.id).then( r => {
-			if(r.length > 0) {
-				return done(null, r[0])
+        let id = profile.id;
+			  if(r.length > 0) {
+				  return done(null, r[0]);
 			} else {
 				let user_info = {
-					facebook_id: profile.id,
+					facebook_id: id,
 					access_token: access_token,
 					email: profile.emails[0].value,
 					name: profile.displayName,
 					estado_usuario_id: 0
 				};
-				user.findOneByEmail(profile.emails[0].value).then(r => {
-					if(r.length > 0) {
-						user.update(r[0].id, user_info).then(r => done(null, r));
+				user.findOneByEmail(profile.emails[0].value).then(ret => {
+					if(ret.length > 0) {
+						  user.update(ret[0].id, user_info).then(rs => {
+                  done(null, rs);
+              });
 					} else {
-						user.createByFacebook(user_info).then(r => {done(null, r)});	
+						  user.createByFacebook(user_info).then(res => {
+                  user.getById(res[0]).then(usr => done(null,usr[0]) );
+              });
 					}
 				});
 			}

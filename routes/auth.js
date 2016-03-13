@@ -25,11 +25,10 @@ router.get('/', function(req, res, next) {
 
 router.get('/facebook',passport.authenticate('facebook', {scope: 'email'}));
 router.get('/facebook/callback',
-	passport.authenticate('facebook', {
-		successRedirect:'/users',
-		failureRedirect: '/'
-	})
-);
+	         passport.authenticate('facebook', {failureRedirect: '/auth'}),
+           (req, res) => {
+               res.redirect('/');
+           });
 
 
 router.post('/login', passport.authenticate('local',{
@@ -48,5 +47,10 @@ router.post('/create', passport.authenticate('local-signup', {
     failureRedirect: 'create',
     failureFlash: true
 }));
+
+router.get('/logout', isLogged, (req, res) => {
+    req.logout();
+    res.redirect('/auth');
+});
 
 module.exports = router;

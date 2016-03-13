@@ -13,7 +13,9 @@ export const findOneByFacebook = (facebook_id) => {
 }
 
 export const createByFacebook = (user_info) => {
-	return db('usuario').insert(user_info).then(r => r);
+	  return db('usuario')
+        .insert(user_info)
+        .then(r => r);
 }
 
 export const findOneByEmail = (email) => {
@@ -25,9 +27,9 @@ export const findOneByEmail = (email) => {
 
 export const update = (id,user_info) => {
 	return db('usuario as u')
-	.where('u.id', id)
-	.update(user_info)
-	.then(r => r);
+        .update(user_info)
+	      .where('u.id', id)
+	      .then(r => r);
 
 }
 
@@ -51,4 +53,11 @@ export const validation = (user_info) => {
     }*/
     element = {validator: true, message:''};
     return element;
+}
+
+export const getById = (user_id) => {
+    return db('usuario as u')
+        .select()
+        .where('u.id', user_id)
+        .then(r => r);
 }
